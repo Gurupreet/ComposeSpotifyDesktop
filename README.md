@@ -7,6 +7,9 @@
   A Spotify demo app for desktop using Jetpack Compose UI toolkit
 </div>
 
+## Demo
+![](https://media.giphy.com/media/NMLgK1lJ8UGtNxx3ja/giphy.gif) 
+
 
 # Jetpack Compose
 Jetpack Compose is Android’s modern toolkit (now supporting Desktop) for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.
