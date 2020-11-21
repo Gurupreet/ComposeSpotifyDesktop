@@ -44,6 +44,7 @@ fun SpotifyApp() {
             SpotifySideBar(spotifyNavItemState)
             SpotifyBodyContent(spotifyNavItemState.value)
         }
+        PlayerBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -88,26 +89,33 @@ fun SpotifySideBar(spotifyNavItemState: MutableState<SpotifyNavType>) {
 
 @Composable
 fun PlayerBottomBar(modifier: Modifier) {
-    val bottomBarHeight = 57.dp
-    val backgroundColor = graySurface
     Row(
-        modifier = modifier.padding(bottom = bottomBarHeight)
+        modifier = modifier
             .fillMaxWidth()
-            .background(color = backgroundColor),
+            .background(color = graySurface)
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             asset = imageFromResource("adele.jpeg"),
-            modifier = Modifier.preferredSize(65.dp),
+            modifier = Modifier.preferredSize(75.dp).padding(8.dp),
             contentScale = ContentScale.Crop
         )
         Text(
             text = "Someone Like you by Adele",
             style = typography.h6.copy(fontSize = 14.sp),
-            modifier = Modifier.padding(8.dp).weight(1f),
+            color = Color.White,
+            modifier = Modifier.padding(16.dp),
         )
-        Icon(asset = Icons.Default.FavoriteBorder, modifier = Modifier.padding(8.dp))
-        Icon(asset = Icons.Default.PlayArrow, modifier = Modifier.padding(8.dp))
+        Icon(asset = Icons.Default.AddCircle, modifier = Modifier.padding(8.dp), tint = Color.White)
+        Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.Center) {
+            Icon(asset = Icons.Default.Refresh, modifier = Modifier.padding(8.dp), tint = Color.White)
+            Icon(asset = Icons.Default.PlayArrow, modifier = Modifier.padding(8.dp), tint = Color.White)
+            Icon(asset = Icons.Default.Favorite, modifier = Modifier.padding(8.dp), tint = spotifyGreen)
+        }
+
+        Icon(asset = Icons.Default.List, modifier = Modifier.padding(8.dp), tint = Color.White)
+        Icon(asset = Icons.Default.Share, modifier = Modifier.padding(8.dp), tint = Color.White)
     }
 }
 
