@@ -1,14 +1,12 @@
 package ui.detail
 
 import androidx.compose.animation.animate
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -16,24 +14,20 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawOpacity
-import androidx.compose.ui.drawLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asDesktopBitmap
 import androidx.compose.ui.graphics.imageFromResource
-import androidx.compose.ui.input.pointer.pointerMoveFilter
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
-import graySurface
 import spotifyBlack
 import spotifyGreen
 import ui.getDominantColor
@@ -46,7 +40,8 @@ fun SpotifyDetailScreen(album: Album, onBack: () -> Unit) {
     val scrollState = rememberScrollState(0f)
     val dominantColor = remember(album.id) { getDominantColor(imageFromResource(album.imageId).asDesktopBitmap()) }
     val dominantGradient = remember(album.id) { listOf(dominantColor, spotifyBlack) }
-    val surfaceGradient = remember(album.id) { listOf(dominantColor,spotifyBlack,spotifyBlack, spotifyBlack, spotifyBlack) }
+    val surfaceGradient =
+        remember(album.id) { listOf(dominantColor, spotifyBlack, spotifyBlack, spotifyBlack, spotifyBlack) }
     Box(modifier = Modifier.fillMaxSize().verticalGradientBackground(dominantGradient)) {
         TopAlbumInfoSection(album = album, scrollState = scrollState)
         TopAlbumInfoOverlay(scrollState = scrollState)
