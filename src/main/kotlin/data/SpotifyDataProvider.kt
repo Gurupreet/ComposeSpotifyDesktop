@@ -2,12 +2,13 @@ package com.guru.composecookbook.ui.demoui.spotify.data
 
 import androidx.compose.ui.graphics.Color
 import graySurface
+import spotifyBlack
 
 
 object SpotifyDataProvider {
 
     fun spotifySurfaceGradient(isDark: Boolean) =
-        if (isDark) listOf(graySurface, Color.Black) else listOf(Color.White, Color.LightGray)
+        if (isDark) listOf(graySurface, spotifyBlack) else listOf(Color.White, Color.LightGray)
 
     val listOfSpotifyHomeLanes = listOf(
         "Continue listening",
@@ -56,7 +57,7 @@ object SpotifyDataProvider {
         artist = "Adele",
         song = "Someone like you",
         descriptions = "Album by Adele-2016",
-        imageId = "adele.jpg"
+        imageId = "adele.jpeg"
     )
 
     val albums = mutableListOf(

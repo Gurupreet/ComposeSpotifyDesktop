@@ -15,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,10 +27,12 @@ import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
 import ui.SpotifyHome
 import ui.SpotifyNavType
 import ui.SpotifySearchScreen
+import ui.detail.SpotifyDetailScreen
 
 fun main() = Window {
     MaterialTheme {
@@ -39,28 +43,34 @@ fun main() = Window {
 @Composable
 fun SpotifyApp() {
     val spotifyNavItemState = savedInstanceState { SpotifyNavType.HOME }
+    val showAlbumDetailState = savedInstanceState<Album?> { null }
+
     Box {
         Row {
-            SpotifySideBar(spotifyNavItemState)
-            SpotifyBodyContent(spotifyNavItemState.value)
+            SpotifySideBar(spotifyNavItemState, showAlbumDetailState)
+            SpotifyBodyContent(spotifyNavItemState.value, showAlbumDetailState.value)
         }
         PlayerBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
 @Composable
-fun SpotifyBodyContent(spotifyNavType: SpotifyNavType) {
-    Crossfade(current = spotifyNavType) { spotifyNavType ->
-        when (spotifyNavType) {
-            SpotifyNavType.HOME -> SpotifyHome()
-            SpotifyNavType.SEARCH -> SpotifySearchScreen()
-            SpotifyNavType.LIBRARY -> Text("Coming soon..")
+fun SpotifyBodyContent(spotifyNavType: SpotifyNavType, album: Album?) {
+    if (album != null) {
+           SpotifyDetailScreen(album)
+    } else {
+        Crossfade(current = spotifyNavType) { spotifyNavType ->
+            when (spotifyNavType) {
+                SpotifyNavType.HOME -> SpotifyHome()
+                SpotifyNavType.SEARCH -> SpotifySearchScreen()
+                SpotifyNavType.LIBRARY -> Text("Coming soon..")
+            }
         }
     }
 }
 
 @Composable
-fun SpotifySideBar(spotifyNavItemState: MutableState<SpotifyNavType>) {
+fun SpotifySideBar(spotifyNavItemState: MutableState<SpotifyNavType>, showAlbumDetailState: MutableState<Album?>) {
     Column(
         modifier = Modifier.fillMaxHeight().preferredWidth(250.dp).background(spotifyBlack).padding(8.dp),
         horizontalAlignment = Alignment.Start
@@ -74,16 +84,22 @@ fun SpotifySideBar(spotifyNavItemState: MutableState<SpotifyNavType>) {
 
         SideBarNavItem("Home", Icons.Default.Home, spotifyNavItemState.value == SpotifyNavType.HOME) {
             spotifyNavItemState.value = SpotifyNavType.HOME
+            showAlbumDetailState.value = null
         }
         SideBarNavItem("Search", Icons.Default.Search, spotifyNavItemState.value == SpotifyNavType.SEARCH) {
             spotifyNavItemState.value = SpotifyNavType.SEARCH
+            showAlbumDetailState.value = null
         }
         SideBarNavItem("Your Library", Icons.Default.List, spotifyNavItemState.value == SpotifyNavType.LIBRARY) {
             spotifyNavItemState.value = SpotifyNavType.LIBRARY
+            showAlbumDetailState.value = null
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-        PlayListsSideBar()
+        PlayListsSideBar {
+            val randomAlbum = SpotifyDataProvider.albums.random()
+            showAlbumDetailState.value = randomAlbum
+        }
     }
 }
 
@@ -120,10 +136,10 @@ fun PlayerBottomBar(modifier: Modifier) {
 }
 
 @Composable
-fun PlayListsSideBar() {
+fun PlayListsSideBar(onPlayListSelected: () -> Unit) {
     Text("PLAYLISTS", modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), color = Color.White)
     LazyColumnFor(items = SpotifyDataProvider.playLits) {
-        Text(it, modifier = Modifier.padding(8.dp), color = Color.LightGray)
+        Text(it, modifier = Modifier.padding(8.dp).clickable { onPlayListSelected.invoke() }, color = Color.LightGray)
     }
 }
 
