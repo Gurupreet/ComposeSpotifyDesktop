@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
 import ui.SpotifyHome
+import ui.SpotifyLibrary
 import ui.SpotifyNavType
 import ui.SpotifySearchScreen
 import ui.detail.SpotifyDetailScreen
@@ -69,7 +70,7 @@ fun SpotifyBodyContent(spotifyNavType: SpotifyNavType, album: MutableState<Album
                 SpotifyNavType.SEARCH -> SpotifySearchScreen { onAlbumSelected ->
                     album.value = onAlbumSelected
                 }
-                SpotifyNavType.LIBRARY -> Text("Coming soon..")
+                SpotifyNavType.LIBRARY -> SpotifyLibrary()
             }
         }
     }
