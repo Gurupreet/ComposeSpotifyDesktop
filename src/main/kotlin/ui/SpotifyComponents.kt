@@ -62,7 +62,7 @@ fun SpotifyHomeGridItem(album: Album) {
 }
 
 @Composable
-fun SpotifyLaneItem(album: Album) {
+fun SpotifyLaneItem(album: Album, onclick: () -> Unit) {
     val album = remember { album }
     var showPlayButton by remember { mutableStateOf(false) }
     var scalePlayButton by remember { mutableStateOf(false) }
@@ -75,16 +75,12 @@ fun SpotifyLaneItem(album: Album) {
         onExit = {
             showPlayButton = false
             false
-        }
-    )) {
+        })
+        .clickable { onclick.invoke() }
+    ) {
         Column(
             modifier = Modifier
                 .preferredWidth(240.dp).padding(24.dp)
-                .clickable(
-                    onClick = {
-                        //Disclaimer: We should pass event top level and there should startActivity
-                        //  context.startActivity(SpotifyDetailActivity.newIntent(context, album))
-                    })
         ) {
             Image(
                 asset = imageFromResource(album.imageId),
@@ -129,14 +125,14 @@ fun SpotifyLaneItem(album: Album) {
 }
 
 @Composable
-fun SpotifySearchGridItem(album: Album, modifier: Modifier = Modifier) {
+fun SpotifySearchGridItem(album: Album, modifier: Modifier = Modifier, onclick: () -> Unit) {
     val dominantColor = remember(album.id) { getDominantColor(imageFromResource(album.imageId).asDesktopBitmap()) }
     val dominantGradient = remember(album.id) { listOf(dominantColor, dominantColor.copy(alpha = 0.6f)) }
 
     Row(
         modifier = modifier
             .padding(12.dp)
-            .clickable(onClick = {})
+            .clickable(onClick = { onclick.invoke() })
             .preferredHeight(220.dp)
             .clip(RoundedCornerShape(8.dp))
             .horizontalGradientBackground(dominantGradient),

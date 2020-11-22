@@ -16,16 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
 import utils.horizontalGradientBackground
 
 @Composable
-fun SpotifyHome() {
+fun SpotifyHome(onAlbumSelected: (Album) -> Unit) {
     val scrollState = rememberScrollState(0f)
     val surfaceGradient = SpotifyDataProvider.spotifySurfaceGradient(true)
 
     Surface {
-        SpotifyHomeContent(scrollState = scrollState, surfaceGradient = surfaceGradient)
+        SpotifyHomeContent(scrollState = scrollState, surfaceGradient = surfaceGradient, onAlbumSelected)
     }
 }
 
@@ -41,33 +42,35 @@ fun SpotifyTitle(text: String, modifier: Modifier = Modifier) {
 
 
 @Composable
-fun SpotifyHomeContent(scrollState: ScrollState, surfaceGradient: List<Color>) {
+fun SpotifyHomeContent(scrollState: ScrollState, surfaceGradient: List<Color>, onAlbumSelected: (Album) -> Unit) {
     ScrollableColumn(
         scrollState = scrollState,
         modifier = Modifier.horizontalGradientBackground(surfaceGradient).padding(8.dp)
     ) {
         Spacer(modifier = Modifier.height(50.dp))
         SpotifyTitle("Good Evening")
-        HomeLanesSection()
+        HomeLanesSection(onAlbumSelected)
         Spacer(modifier = Modifier.height(100.dp))
     }
 }
 
 @Composable
-fun HomeLanesSection() {
+fun HomeLanesSection(onAlbumSelected: (Album) -> Unit) {
     val categories = remember { SpotifyDataProvider.listOfSpotifyHomeLanes }
     categories.forEachIndexed { index, lane ->
         SpotifyTitle(text = lane)
-        SpotifyLane(index)
+        SpotifyLane(index, onAlbumSelected)
     }
 }
 
 @Composable
-fun SpotifyLane(index: Int) {
+fun SpotifyLane(index: Int, onAlbumSelected: (Album) -> Unit) {
     val itemsEven = remember { SpotifyDataProvider.albums }
     val itemsOdd = remember { SpotifyDataProvider.albums.asReversed() }
     LazyRowFor(if (index % 2 == 0) itemsEven else itemsOdd) {
-        SpotifyLaneItem(album = it)
+        SpotifyLaneItem(album = it) {
+            onAlbumSelected.invoke(it)
+        }
     }
 }
 

@@ -48,21 +48,27 @@ fun SpotifyApp() {
     Box {
         Row {
             SpotifySideBar(spotifyNavItemState, showAlbumDetailState)
-            SpotifyBodyContent(spotifyNavItemState.value, showAlbumDetailState.value)
+            SpotifyBodyContent(spotifyNavItemState.value, showAlbumDetailState)
         }
         PlayerBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
 @Composable
-fun SpotifyBodyContent(spotifyNavType: SpotifyNavType, album: Album?) {
-    if (album != null) {
-           SpotifyDetailScreen(album)
+fun SpotifyBodyContent(spotifyNavType: SpotifyNavType, album: MutableState<Album?>) {
+    if (album.value != null) {
+        SpotifyDetailScreen(album.value!!) {
+            album.value = null
+        }
     } else {
         Crossfade(current = spotifyNavType) { spotifyNavType ->
             when (spotifyNavType) {
-                SpotifyNavType.HOME -> SpotifyHome()
-                SpotifyNavType.SEARCH -> SpotifySearchScreen()
+                SpotifyNavType.HOME -> SpotifyHome { onAlbumSelected ->
+                    album.value = onAlbumSelected
+                }
+                SpotifyNavType.SEARCH -> SpotifySearchScreen { onAlbumSelected ->
+                    album.value = onAlbumSelected
+                }
                 SpotifyNavType.LIBRARY -> Text("Coming soon..")
             }
         }
@@ -97,8 +103,7 @@ fun SpotifySideBar(spotifyNavItemState: MutableState<SpotifyNavType>, showAlbumD
 
         Spacer(modifier = Modifier.height(20.dp))
         PlayListsSideBar {
-            val randomAlbum = SpotifyDataProvider.albums.random()
-            showAlbumDetailState.value = randomAlbum
+            showAlbumDetailState.value = SpotifyDataProvider.albums.random()
         }
     }
 }

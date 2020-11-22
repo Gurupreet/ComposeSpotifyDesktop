@@ -41,7 +41,7 @@ import utils.horizontalGradientBackground
 import utils.verticalGradientBackground
 
 @Composable
-fun SpotifyDetailScreen(album: Album) {
+fun SpotifyDetailScreen(album: Album, onBack: () -> Unit) {
     val album = remember { album }
     val scrollState = rememberScrollState(0f)
     val dominantColor = remember(album.id) { getDominantColor(imageFromResource(album.imageId).asDesktopBitmap()) }
@@ -52,12 +52,12 @@ fun SpotifyDetailScreen(album: Album) {
         TopAlbumInfoOverlay(scrollState = scrollState)
 
         SongsScrollableContent(scrollState = scrollState, surfaceGradient = surfaceGradient)
-        AnimatedToolBar(album, scrollState, dominantColor)
+        AnimatedToolBar(album, scrollState, dominantColor, onBack)
     }
 }
 
 @Composable
-fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color) {
+fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color, onBack: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -69,7 +69,7 @@ fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color
             )
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
-        Icon(asset = Icons.Default.ArrowBack, tint = Color.White)
+        Icon(asset = Icons.Default.ArrowBack, tint = Color.White, modifier = Modifier.clickable { onBack.invoke() })
         Text(
             text = album.song,
             color = Color.White,
@@ -109,6 +109,7 @@ fun SongListScrollingSection() {
     items.forEach {
         SpotifySongListItem(album = it)
     }
+    Spacer(modifier = Modifier.height(100.dp))
 }
 
 @Composable
@@ -141,12 +142,6 @@ fun TopAlbumInfoSection(album: Album, scrollState: ScrollState) {
         )
         Column {
             Text(
-                text = album.genre,
-                style = typography.subtitle2,
-                color = Color.LightGray,
-                modifier = Modifier.padding(start = 8.dp, bottom = 16.dp)
-            )
-            Text(
                 text = album.song,
                 style = typography.h2.copy(fontWeight = FontWeight.ExtraBold),
                 modifier = Modifier.padding(8.dp),
@@ -157,6 +152,12 @@ fun TopAlbumInfoSection(album: Album, scrollState: ScrollState) {
                 style = typography.subtitle2,
                 color = Color.LightGray,
                 modifier = Modifier.padding(start = 8.dp)
+            )
+            Text(
+                text = album.genre,
+                style = typography.subtitle2,
+                color = Color.White,
+                modifier = Modifier.padding(start = 8.dp, top = 8.dp)
             )
         }
     }

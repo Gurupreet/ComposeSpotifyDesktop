@@ -19,12 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
 import utils.VerticalGrid
 import utils.horizontalGradientBackground
 
 @Composable
-fun SpotifySearchScreen() {
+fun SpotifySearchScreen(onAlbumSelected: (Album) -> Unit) {
     val scrollState = rememberScrollState(0f)
     val surfaceGradient = SpotifyDataProvider.spotifySurfaceGradient(true)
 
@@ -36,19 +37,21 @@ fun SpotifySearchScreen() {
             Spacer(modifier = Modifier.height(40.dp))
             SpotifySearchBar()
             SpotifyTitle("Your Top Genre")
-            SpotifySearchLane()
+            SpotifySearchLane(onAlbumSelected)
             SpotifyTitle("Browse All")
-            SpotifySearchGrid()
+            SpotifySearchGrid(onAlbumSelected)
         }
         Spacer(modifier = Modifier.height(200.dp))
     }
 }
 
 @Composable
-fun SpotifySearchLane() {
+fun SpotifySearchLane(onAlbumSelected: (Album) -> Unit) {
     val items = remember { SpotifyDataProvider.albums.asReversed() }
     LazyRowFor(items = items, modifier = Modifier.padding(start = 8.dp)) {
-        SpotifySearchGridItem(it, modifier = Modifier.width(400.dp))
+        SpotifySearchGridItem(it, modifier = Modifier.width(400.dp)) {
+            onAlbumSelected.invoke(it)
+        }
     }
 }
 
@@ -78,13 +81,15 @@ fun SpotifySearchBar() {
 }
 
 @Composable
-fun SpotifySearchGrid() {
+fun SpotifySearchGrid(onAlbumSelected: (Album) -> Unit) {
     val items = remember { SpotifyDataProvider.albums + SpotifyDataProvider.albums }
     //This is not Lazy at the moment Soon we will have LazyLayout coming then will
     //Update it so we have better performance
     VerticalGrid(columns = 6, modifier = Modifier.padding(horizontal = 8.dp)) {
         items.forEach {
-            SpotifySearchGridItem(it)
+            SpotifySearchGridItem(it) {
+                onAlbumSelected.invoke(it)
+            }
         }
     }
 }
