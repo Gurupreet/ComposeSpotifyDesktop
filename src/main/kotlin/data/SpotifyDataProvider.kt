@@ -39,17 +39,7 @@ object SpotifyDataProvider {
         "Bollywood",
         "Acoustic only",
         "Continue listening",
-        "Popular Playlists",
-        "Top Charts",
-        "Recommended for today",
-        "Bollywood",
-        "Acoustic only",
-        "Continue listening",
-        "Popular Playlists",
-        "Top Charts",
-        "Recommended for today",
-        "Bollywood",
-        "Acoustic only"
+        "Popular Playlists"
     )
 
     val album = Album(

@@ -42,11 +42,11 @@ import utils.verticalGradientBackground
 
 @Composable
 fun SpotifyDetailScreen(album: Album, onBack: () -> Unit) {
-    val album = remember { album }
+    val album = remember(album.id) { album }
     val scrollState = rememberScrollState(0f)
     val dominantColor = remember(album.id) { getDominantColor(imageFromResource(album.imageId).asDesktopBitmap()) }
     val dominantGradient = remember(album.id) { listOf(dominantColor, spotifyBlack) }
-    val surfaceGradient = remember { listOf(dominantColor,spotifyBlack,spotifyBlack, spotifyBlack, spotifyBlack) }
+    val surfaceGradient = remember(album.id) { listOf(dominantColor,spotifyBlack,spotifyBlack, spotifyBlack, spotifyBlack) }
     Box(modifier = Modifier.fillMaxSize().verticalGradientBackground(dominantGradient)) {
         TopAlbumInfoSection(album = album, scrollState = scrollState)
         TopAlbumInfoOverlay(scrollState = scrollState)
@@ -64,7 +64,7 @@ fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color
         modifier = Modifier
             .fillMaxWidth()
             .horizontalGradientBackground(
-                if (Dp(scrollState.value) < 1080.dp)
+                if (Dp(scrollState.value) < 700.dp)
                     listOf(Color.Transparent, Color.Transparent) else listOf(dominantColor, dominantColor)
             )
             .padding(horizontal = 8.dp, vertical = 4.dp)
