@@ -8,7 +8,9 @@
 </div>
 
 ## Demo
-![](https://media.giphy.com/media/NMLgK1lJ8UGtNxx3ja/giphy.gif) 
+Home             |  Search & Detail
+:-------------------------:|:-------------------------
+![](https://media.giphy.com/media/NMLgK1lJ8UGtNxx3ja/giphy.gif)  |  ![](https://media.giphy.com/media/OaQy1bKngytw5FvoSg/giphy.gif)
 
 
 # Jetpack Compose
