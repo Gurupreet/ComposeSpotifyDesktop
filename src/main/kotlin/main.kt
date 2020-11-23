@@ -35,7 +35,7 @@ import ui.SpotifyNavType
 import ui.SpotifySearchScreen
 import ui.detail.SpotifyDetailScreen
 
-fun main() = Window {
+fun main() = Window(title = "Compose Spotify Desktop") {
     MaterialTheme {
         SpotifyApp()
     }
