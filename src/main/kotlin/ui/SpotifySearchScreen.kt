@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -16,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.guru.composecookbook.ui.demoui.spotify.data.Album
@@ -27,7 +27,7 @@ import utils.horizontalGradientBackground
 @Composable
 fun SpotifySearchScreen(onAlbumSelected: (Album) -> Unit) {
     val scrollState = rememberScrollState(0f)
-    val surfaceGradient = SpotifyDataProvider.spotifySurfaceGradient(true)
+    val surfaceGradient = listOf(MaterialTheme.colors.secondary, MaterialTheme.colors.surface)
 
     ScrollableColumn(
         scrollState = scrollState,
@@ -62,7 +62,7 @@ fun SpotifySearchBar() {
         modifier = Modifier
             .padding(16.dp)
             .clip(CircleShape),
-        backgroundColor = Color.White
+        backgroundColor = MaterialTheme.colors.onSurface
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -70,11 +70,12 @@ fun SpotifySearchBar() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Modifier.padding(start = 8.dp)
-            Icon(Icons.Default.Search)
+            Icon(Icons.Default.Search, tint = MaterialTheme.colors.surface)
             Text(
                 text = "Artists, songs, or podcasts",
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 style = typography.h6.copy(fontSize = 14.sp),
+                color = MaterialTheme.colors.surface
             )
         }
     }

@@ -8,11 +8,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.*
@@ -92,14 +89,14 @@ fun SpotifyLaneItem(album: Album, onclick: () -> Unit) {
                 text = "${album.song}: ${album.descriptions}",
                 style = typography.body2,
                 maxLines = 2,
-                color = Color.White,
+                color = MaterialTheme.colors.onSurface,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
         }
         IconButton(
             onClick = {},
-            icon = { Icon(Icons.Default.PlayArrow, tint = Color.White) },
+            icon = { Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface) },
             modifier = Modifier
                 .pointerMoveFilter(
                     onEnter = {
@@ -141,7 +138,7 @@ fun SpotifySearchGridItem(album: Album, modifier: Modifier = Modifier, onclick: 
         Text(
             text = album.song,
             style = typography.h6,
-            color = Color.White,
+            color = MaterialTheme.colors.onSurface,
             modifier = Modifier.padding(8.dp)
         )
         Image(

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -15,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,26 +40,27 @@ fun SpotifySongListItem(album: Album) {
             Text(
                 text = album.song,
                 style = typography.h6.copy(fontSize = 16.sp),
-                color = Color.White
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(bottom = 4.dp)
             )
             Text(
                 text = "${album.artist}, ${album.descriptions}",
                 style = typography.subtitle2,
                 maxLines = 1,
-                color = Color.LightGray,
+                color = MaterialTheme.colors.onSecondary,
                 overflow = TextOverflow.Ellipsis
             )
         }
         if (album.id % 3 == 0) {
             Icon(
                 asset = Icons.Default.Favorite,
-                tint = Color.White,
+                tint = MaterialTheme.colors.onSecondary,
                 modifier = Modifier.padding(4.dp).preferredSize(20.dp)
             )
         }
         Icon(
             asset = Icons.Default.MoreVert,
-            tint = Color.LightGray,
+            tint = MaterialTheme.colors.onSecondary,
             modifier = Modifier.padding(4.dp)
         )
     }

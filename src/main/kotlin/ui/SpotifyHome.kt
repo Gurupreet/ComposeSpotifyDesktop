@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRowFor
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,7 +24,7 @@ import utils.horizontalGradientBackground
 @Composable
 fun SpotifyHome(onAlbumSelected: (Album) -> Unit) {
     val scrollState = rememberScrollState(0f)
-    val surfaceGradient = SpotifyDataProvider.spotifySurfaceGradient(true)
+    val surfaceGradient = listOf(MaterialTheme.colors.secondary, MaterialTheme.colors.surface)
 
     Surface {
         SpotifyHomeContent(scrollState = scrollState, surfaceGradient = surfaceGradient, onAlbumSelected)
@@ -34,7 +35,7 @@ fun SpotifyHome(onAlbumSelected: (Album) -> Unit) {
 fun SpotifyTitle(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        color = Color.White,
+        color = MaterialTheme.colors.onSurface,
         style = typography.h5.copy(fontWeight = FontWeight.ExtraBold),
         modifier = modifier.padding(start = 24.dp, end = 4.dp, bottom = 8.dp, top = 24.dp)
     )

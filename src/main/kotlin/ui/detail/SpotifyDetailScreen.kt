@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -28,7 +29,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.guru.composecookbook.ui.demoui.spotify.data.Album
 import com.guru.composecookbook.ui.demoui.spotify.data.SpotifyDataProvider
-import spotifyBlack
 import spotifyGreen
 import ui.getDominantColor
 import utils.horizontalGradientBackground
@@ -39,9 +39,10 @@ fun SpotifyDetailScreen(album: Album, onBack: () -> Unit) {
     val album = remember(album.id) { album }
     val scrollState = rememberScrollState(0f)
     val dominantColor = remember(album.id) { getDominantColor(imageFromResource(album.imageId).asDesktopBitmap()) }
-    val dominantGradient = remember(album.id) { listOf(dominantColor, spotifyBlack) }
+    val surface = MaterialTheme.colors.surface
+    val dominantGradient = remember(album.id) { listOf(dominantColor, surface) }
     val surfaceGradient =
-        remember(album.id) { listOf(dominantColor, spotifyBlack, spotifyBlack, spotifyBlack, spotifyBlack) }
+        remember(album.id) { listOf(dominantColor, surface, surface, surface, surface) }
     Box(modifier = Modifier.fillMaxSize().verticalGradientBackground(dominantGradient)) {
         TopAlbumInfoSection(album = album, scrollState = scrollState)
         TopAlbumInfoOverlay(scrollState = scrollState)
@@ -64,15 +65,18 @@ fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color
             )
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
-        Icon(asset = Icons.Default.ArrowBack, tint = Color.White, modifier = Modifier.clickable { onBack.invoke() })
+        Icon(
+            asset = Icons.Default.ArrowBack,
+            tint = MaterialTheme.colors.onSurface,
+            modifier = Modifier.clickable { onBack.invoke() })
         Text(
             text = album.song,
-            color = Color.White,
+            color = MaterialTheme.colors.onSurface,
             modifier = Modifier
                 .padding(16.dp)
                 .drawOpacity(((scrollState.value + 0.001f) / 1000).coerceIn(0f, 1f))
         )
-        Icon(asset = Icons.Default.MoreVert, tint = Color.White)
+        Icon(asset = Icons.Default.MoreVert, tint = MaterialTheme.colors.onSurface)
     }
 }
 
@@ -83,7 +87,7 @@ fun TopAlbumInfoOverlay(scrollState: ScrollState) {
     Box(
         modifier = Modifier.fillMaxWidth()
             .height(380.dp)
-            .background(spotifyBlack.copy(alpha = animate(dynamicAlpha)))
+            .background(MaterialTheme.colors.surface.copy(alpha = animate(dynamicAlpha)))
     )
 }
 
@@ -112,14 +116,18 @@ fun PlayButtons() {
     Row(modifier = Modifier.padding(16.dp)) {
         IconButton(
             onClick = {},
-            icon = { Icon(Icons.Default.PlayArrow, tint = Color.White) },
+            icon = { Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface) },
             modifier = Modifier
                 .padding(bottom = 16.dp, end = 24.dp)
                 .clip(CircleShape)
                 .background(spotifyGreen)
         )
         Icon(asset = Icons.Default.Favorite, tint = spotifyGreen, modifier = Modifier.padding(16.dp))
-        Icon(asset = Icons.Default.MoreVert, tint = Color.LightGray, modifier = Modifier.padding(16.dp))
+        Icon(
+            asset = Icons.Default.MoreVert,
+            tint = MaterialTheme.colors.onSecondary,
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }
 
@@ -140,18 +148,18 @@ fun TopAlbumInfoSection(album: Album, scrollState: ScrollState) {
                 text = album.song,
                 style = typography.h2.copy(fontWeight = FontWeight.ExtraBold),
                 modifier = Modifier.padding(8.dp),
-                color = Color.White
+                color = MaterialTheme.colors.onSurface
             )
             Text(
                 text = album.descriptions,
                 style = typography.subtitle2,
-                color = Color.LightGray,
+                color = MaterialTheme.colors.onSecondary,
                 modifier = Modifier.padding(start = 8.dp)
             )
             Text(
                 text = album.genre,
                 style = typography.subtitle2,
-                color = Color.White,
+                color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp)
             )
         }
