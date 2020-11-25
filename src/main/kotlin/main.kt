@@ -36,7 +36,8 @@ import ui.SpotifyNavType
 import ui.SpotifySearchScreen
 import ui.detail.SpotifyDetailScreen
 
-fun main() = Window {
+
+fun main() = Window(title = "Compose Spotify Desktop") {
     val darkTheme = savedInstanceState { true }
     MaterialTheme(colors = if (darkTheme.value) DarkGreenColorPalette else LightGreenColorPalette) {
         SpotifyApp(darkTheme)

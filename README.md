@@ -8,7 +8,9 @@
 </div>
 
 ## Demo
-![](https://media.giphy.com/media/NMLgK1lJ8UGtNxx3ja/giphy.gif) 
+Home             |  Search & Detail
+:-------------------------:|:-------------------------
+![](https://media.giphy.com/media/NMLgK1lJ8UGtNxx3ja/giphy.gif)  |  ![](https://media.giphy.com/media/OaQy1bKngytw5FvoSg/giphy.gif)
 
 
 # Jetpack Compose
@@ -17,7 +19,7 @@ Jetpack Compose is Android’s modern toolkit (now supporting Desktop) for build
 
 ## How to get started
 - Please download the Early Access version of IntelliJ [from here](https://www.jetbrains.com/idea/nextversion/#section=mac).
-- Load the projet and run Main.kt
+- Load the project and run Main.kt
 - Start new project from Desktop using Kotlin 1.4.+ 
 
 
