@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.graphics.Color
@@ -66,7 +67,7 @@ fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
         Icon(
-            asset = Icons.Default.ArrowBack,
+            imageVector = Icons.Default.ArrowBack,
             tint = MaterialTheme.colors.onSurface,
             modifier = Modifier.clickable { onBack.invoke() })
         Text(
@@ -74,9 +75,9 @@ fun AnimatedToolBar(album: Album, scrollState: ScrollState, dominantColor: Color
             color = MaterialTheme.colors.onSurface,
             modifier = Modifier
                 .padding(16.dp)
-                .drawOpacity(((scrollState.value + 0.001f) / 1000).coerceIn(0f, 1f))
+                .alpha(((scrollState.value + 0.001f) / 1000).coerceIn(0f, 1f))
         )
-        Icon(asset = Icons.Default.MoreVert, tint = MaterialTheme.colors.onSurface)
+        Icon(imageVector = Icons.Default.MoreVert, tint = MaterialTheme.colors.onSurface)
     }
 }
 
@@ -116,15 +117,16 @@ fun PlayButtons() {
     Row(modifier = Modifier.padding(16.dp)) {
         IconButton(
             onClick = {},
-            icon = { Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface) },
             modifier = Modifier
                 .padding(bottom = 16.dp, end = 24.dp)
                 .clip(CircleShape)
                 .background(spotifyGreen)
-        )
-        Icon(asset = Icons.Default.Favorite, tint = spotifyGreen, modifier = Modifier.padding(16.dp))
+        ) {
+            Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface)
+        }
+        Icon(imageVector = Icons.Default.Favorite, tint = spotifyGreen, modifier = Modifier.padding(16.dp))
         Icon(
-            asset = Icons.Default.MoreVert,
+            imageVector = Icons.Default.MoreVert,
             tint = MaterialTheme.colors.onSecondary,
             modifier = Modifier.padding(16.dp)
         )
@@ -138,7 +140,7 @@ fun TopAlbumInfoSection(album: Album, scrollState: ScrollState) {
         val dynamicValue = (250.dp - Dp(scrollState.value / 10)).coerceIn(10.dp, 250.dp)
         val animateImageSize = animate(dynamicValue)
         Image(
-            asset = imageFromResource(album.imageId),
+            imageFromResource(album.imageId),
             modifier = Modifier
                 .preferredSize(animateImageSize)
                 .padding(8.dp)

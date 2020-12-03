@@ -34,7 +34,7 @@ fun SpotifyLibrary() {
             draw4 = false
         })) {
             Image(
-                asset = imageFromResource("bp.jpg"),
+                imageFromResource("bp.jpg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw2) 30f else 5f),
                     translationX = animate(target = if (draw2) 520f else 0f),
@@ -42,7 +42,7 @@ fun SpotifyLibrary() {
                 )
             )
             Image(
-                asset = imageFromResource("dualipa.jpeg"),
+                imageFromResource("dualipa.jpeg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw2) 30f else 10f),
                     translationX = animate(target = if (draw2) -520f else 0f),
@@ -50,7 +50,7 @@ fun SpotifyLibrary() {
                 ).clickable(onClick = { draw2 = !draw2 })
             )
             Image(
-                asset = imageFromResource("tylor.jpeg"),
+                imageFromResource("tylor.jpeg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw2) 30f else 5f),
                     translationY = animate(target = if (draw2) 0f else 50f)
@@ -65,7 +65,7 @@ fun SpotifyLibrary() {
             draw2 = false
         }) {
             Image(
-                asset = imageFromResource("katy.jpg"),
+                imageFromResource("katy.jpg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw4) 30f else 5f),
                     translationX = animate(target = if (draw4) 320f else 0f),
@@ -74,7 +74,7 @@ fun SpotifyLibrary() {
                 )
             )
             Image(
-                asset = imageFromResource("ed2.jpg"),
+                imageFromResource("ed2.jpg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw4) 30f else 10f),
                     translationX = animate(target = if (draw4) -320f else 0f),
@@ -83,7 +83,7 @@ fun SpotifyLibrary() {
                 )
             )
             Image(
-                asset = imageFromResource("camelia.jpeg"),
+                imageFromResource("camelia.jpeg"),
                 modifier = Modifier.preferredSize(imageSize).drawLayer(
                     shadowElevation = animate(if (draw4) 30f else 5f),
                     translationY = animate(target = if (draw4) 0f else 50f),

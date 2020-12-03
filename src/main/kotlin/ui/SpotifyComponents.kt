@@ -15,11 +15,13 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.drawLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asDesktopBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.layout.ContentScale
@@ -45,7 +47,7 @@ fun SpotifyHomeGridItem(album: Album) {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
-                asset = imageFromResource(album.imageId),
+                imageFromResource(album.imageId),
                 modifier = Modifier.preferredSize(55.dp),
                 contentScale = ContentScale.Crop
             )
@@ -80,7 +82,7 @@ fun SpotifyLaneItem(album: Album, onclick: () -> Unit) {
                 .preferredWidth(240.dp).padding(24.dp)
         ) {
             Image(
-                asset = imageFromResource(album.imageId),
+                imageFromResource(album.imageId),
                 modifier = Modifier.preferredWidth(240.dp)
                     .preferredHeight(200.dp),
                 contentScale = ContentScale.Crop
@@ -96,7 +98,6 @@ fun SpotifyLaneItem(album: Album, onclick: () -> Unit) {
         }
         IconButton(
             onClick = {},
-            icon = { Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface) },
             modifier = Modifier
                 .pointerMoveFilter(
                     onEnter = {
@@ -108,16 +109,18 @@ fun SpotifyLaneItem(album: Album, onclick: () -> Unit) {
                         false
                     }
                 )
-                .drawOpacity(animate(if (showPlayButton) 1f else 0f, animSpec = tween(500)))
+                .alpha(animate(if (showPlayButton) 1f else 0f, animSpec = tween(500)))
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 90.dp, end = 30.dp)
                 .clip(CircleShape)
-                .drawLayer(
+                .graphicsLayer(
                     scaleX = animate(if (scalePlayButton) 1.3f else 1f),
                     scaleY = animate(if (scalePlayButton) 1.3f else 1f)
                 )
                 .background(spotifyGreen)
-        )
+        ) {
+            Icon(Icons.Default.PlayArrow, tint = MaterialTheme.colors.onSurface)
+        }
     }
 }
 
@@ -142,7 +145,7 @@ fun SpotifySearchGridItem(album: Album, modifier: Modifier = Modifier, onclick: 
             modifier = Modifier.padding(8.dp)
         )
         Image(
-            asset = imageFromResource(album.imageId),
+            imageFromResource(album.imageId),
             contentScale = ContentScale.Crop,
             modifier = Modifier.preferredSize(100.dp)
                 .align(Alignment.Bottom)

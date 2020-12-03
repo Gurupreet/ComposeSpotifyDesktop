@@ -32,7 +32,7 @@ fun SpotifySongListItem(album: Album) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            asset = imageFromResource(album.imageId),
+            imageFromResource(album.imageId),
             contentScale = ContentScale.Crop,
             modifier = Modifier.preferredSize(55.dp).padding(4.dp)
         )
@@ -53,13 +53,13 @@ fun SpotifySongListItem(album: Album) {
         }
         if (album.id % 3 == 0) {
             Icon(
-                asset = Icons.Default.Favorite,
+                imageVector = Icons.Default.Favorite,
                 tint = MaterialTheme.colors.onSecondary,
                 modifier = Modifier.padding(4.dp).preferredSize(20.dp)
             )
         }
         Icon(
-            asset = Icons.Default.MoreVert,
+            imageVector = Icons.Default.MoreVert,
             tint = MaterialTheme.colors.onSecondary,
             modifier = Modifier.padding(4.dp)
         )

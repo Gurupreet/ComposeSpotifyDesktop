@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.imageFromResource
-import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -93,7 +93,7 @@ fun SpotifySideBar(
     ) {
         Spacer(modifier = Modifier.height(32.dp))
         Image(
-            asset = imageFromResource(if (darkTheme.value) "spotify.png" else "spotifydark.png"),
+             imageFromResource(if (darkTheme.value) "spotify.png" else "spotifydark.png"),
             modifier = Modifier.padding(end = 16.dp, top = 16.dp, bottom = 16.dp),
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -104,9 +104,9 @@ fun SpotifySideBar(
         ) {
             Text("Toggle Theme", style = typography.h6.copy(fontSize = 14.sp), color = MaterialTheme.colors.onSurface)
             if (darkTheme.value) {
-                Icon(asset = Icons.Default.Star, tint = Color.Yellow)
+                Icon(imageVector = Icons.Default.Star, tint = Color.Yellow)
             } else {
-                Icon(asset = Icons.Default.Star, tint = MaterialTheme.colors.onSurface)
+                Icon(imageVector = Icons.Default.Star, tint = MaterialTheme.colors.onSurface)
             }
 
         }
@@ -145,7 +145,7 @@ fun PlayerBottomBar(modifier: Modifier) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            asset = imageFromResource("adele.jpeg"),
+            imageFromResource("adele.jpeg"),
             modifier = Modifier.preferredSize(75.dp).padding(8.dp),
             contentScale = ContentScale.Crop
         )
@@ -155,23 +155,23 @@ fun PlayerBottomBar(modifier: Modifier) {
             color = MaterialTheme.colors.onSurface,
             modifier = Modifier.padding(16.dp),
         )
-        Icon(asset = Icons.Default.AddCircle, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
+        Icon(imageVector = Icons.Default.AddCircle, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
         Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.Center) {
             Icon(
-                asset = Icons.Default.Refresh,
+                imageVector = Icons.Default.Refresh,
                 modifier = Modifier.padding(8.dp),
                 tint = MaterialTheme.colors.onSurface
             )
             Icon(
-                asset = Icons.Default.PlayArrow,
+                imageVector = Icons.Default.PlayArrow,
                 modifier = Modifier.padding(8.dp),
                 tint = MaterialTheme.colors.onSurface
             )
-            Icon(asset = Icons.Default.Favorite, modifier = Modifier.padding(8.dp), tint = spotifyGreen)
+            Icon(imageVector = Icons.Default.Favorite, modifier = Modifier.padding(8.dp), tint = spotifyGreen)
         }
 
-        Icon(asset = Icons.Default.List, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
-        Icon(asset = Icons.Default.Share, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
+        Icon(imageVector = Icons.Default.List, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
+        Icon(imageVector = Icons.Default.Share, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
     }
 }
 
@@ -198,7 +198,7 @@ fun PlayListsSideBar(selectedIndex: Int, onPlayListSelected: (Int) -> Unit) {
 
 
 @Composable
-fun SideBarNavItem(title: String, icon: VectorAsset, selected: Boolean, onClick: () -> Unit) {
+fun SideBarNavItem(title: String, icon: ImageVector, selected: Boolean, onClick: () -> Unit) {
     val animatedBackgroundColor =
         animate(if (selected) MaterialTheme.colors.secondary else MaterialTheme.colors.surface)
     val animatedContentColor =
@@ -210,7 +210,7 @@ fun SideBarNavItem(title: String, icon: VectorAsset, selected: Boolean, onClick:
                 onClick.invoke()
             }
     ) {
-        Icon(asset = icon, tint = animatedContentColor)
+        Icon(imageVector = icon, tint = animatedContentColor)
         Text(
             title,
             style = typography.body1,

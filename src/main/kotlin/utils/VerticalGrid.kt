@@ -3,6 +3,7 @@ package utils
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.*
 
 
 /**
@@ -18,7 +19,7 @@ fun VerticalGrid(
     content: @Composable () -> Unit
 ) {
     Layout(
-        children = content,
+        content = content,
         modifier = modifier
     ) { measurables, constraints ->
         val itemWidth = constraints.maxWidth / columns
@@ -28,7 +29,9 @@ fun VerticalGrid(
             maxWidth = itemWidth
         )
         // Measure each item with these constraints
-        val placeables = measurables.map { it.measure(itemConstraints) }
+        val placeables = measurables.map { measurable ->
+            measurable.measure(itemConstraints)
+        }
         // Track each columns height so we can calculate the overall height
         val columnHeights = Array(columns) { 0 }
         placeables.forEachIndexed { index, placeable ->
@@ -37,10 +40,7 @@ fun VerticalGrid(
         }
         val height = (columnHeights.maxOrNull() ?: constraints.minHeight)
             .coerceAtMost(constraints.maxHeight)
-        layout(
-            width = constraints.maxWidth,
-            height = height
-        ) {
+        layout(constraints.maxWidth, height) {
             // Track the Y co-ord per column we have placed up to
             val columnY = Array(columns) { 0 }
             placeables.forEachIndexed { index, placeable ->
