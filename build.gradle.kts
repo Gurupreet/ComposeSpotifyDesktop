@@ -20,9 +20,9 @@ dependencies {
     implementation(compose.desktop.currentOs)
 }
 
-//tasks.withType<KotlinCompile>() {
-//    kotlinOptions.jvmTarget = "11"
-//}
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "11"
+}
 
 compose.desktop {
     application {

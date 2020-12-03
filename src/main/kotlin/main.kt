@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnForIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
@@ -93,7 +92,7 @@ fun SpotifySideBar(
     ) {
         Spacer(modifier = Modifier.height(32.dp))
         Image(
-             imageFromResource(if (darkTheme.value) "spotify.png" else "spotifydark.png"),
+            imageFromResource(if (darkTheme.value) "spotify.png" else "spotifydark.png"),
             modifier = Modifier.padding(end = 16.dp, top = 16.dp, bottom = 16.dp),
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -155,7 +154,11 @@ fun PlayerBottomBar(modifier: Modifier) {
             color = MaterialTheme.colors.onSurface,
             modifier = Modifier.padding(16.dp),
         )
-        Icon(imageVector = Icons.Default.AddCircle, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
+        Icon(
+            imageVector = Icons.Default.AddCircle,
+            modifier = Modifier.padding(8.dp),
+            tint = MaterialTheme.colors.onSurface
+        )
         Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.Center) {
             Icon(
                 imageVector = Icons.Default.Refresh,
@@ -171,7 +174,11 @@ fun PlayerBottomBar(modifier: Modifier) {
         }
 
         Icon(imageVector = Icons.Default.List, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
-        Icon(imageVector = Icons.Default.Share, modifier = Modifier.padding(8.dp), tint = MaterialTheme.colors.onSurface)
+        Icon(
+            imageVector = Icons.Default.Share,
+            modifier = Modifier.padding(8.dp),
+            tint = MaterialTheme.colors.onSurface
+        )
     }
 }
 
