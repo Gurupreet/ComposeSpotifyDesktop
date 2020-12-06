@@ -8,6 +8,7 @@ val spotifyGreen = Color(0xFF1db954)
 val green700 = Color(0xff388e3c)
 val spotifyBlack = Color(0xff100c08)
 val darkGray = Color(0xFF565656)
+val spotifyGradient = listOf(spotifyGreen, Color.Yellow, spotifyGreen.copy(alpha = 0.8f))
 
 val DarkGreenColorPalette = darkColors(
     primary = green700,
